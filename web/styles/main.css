@@ -1,0 +1,32 @@
+/* 
+  Copyright 2015 Drew Bryant and Patrick Lathan
+*/
+html{
+    font-family: sans-serif;
+}
+header{
+    text-align: center;
+    margin: 1em;
+}
+footer{
+    border-top: solid blue;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1em;
+}
+#pageContent{
+    border: solid red;
+    width: 75%;
+    padding: 2em;
+    margin: auto;
+    margin-bottom: 2em;
+}
+body{
+    margin: 0;
+    width: 100%;
+}
+a{
+    font-weight: bold;
+    font-size: 1.25em;
+}
