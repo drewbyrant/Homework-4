@@ -13,7 +13,8 @@
   </head>
   <body>
     <h2>Checkout a book</h2>
-    <form>
+    <form action="/library" method="post">
+      <input type="hidden" name="action" value="checkout">
       First Name:
       <input type="text" name="firstname" size="50" required>
       <br>

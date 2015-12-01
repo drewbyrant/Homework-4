@@ -14,7 +14,8 @@
     <h1>Belk Library</h1>
   </head>
   <body>
-    <p>Check out a book</p>
-    <p>Manage checked out books</p>
+    <a href="library?action=to_checkout">Check out a book</a>
+    <br>
+    <a href="library?action=to_manage">Manage checked out books</a>
   </body>
 </html>

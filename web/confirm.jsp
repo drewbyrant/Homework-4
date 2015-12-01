@@ -17,6 +17,6 @@
     on PLACEHOLDER.  A friendly email reminder will be sent to you if your book 
     becomes overdue</p>
     
-    <p>Return to front page</p>
+    <a href="library?action=front">Return to front page</a>
   </body>
 </html>

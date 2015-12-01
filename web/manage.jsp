@@ -23,6 +23,6 @@
         <th> </th>
       </tr>
     </table>
-    <p>Return to front page</p>
+    <a href="library?action=front">Return to front page</a>
   </body>
 </html>
