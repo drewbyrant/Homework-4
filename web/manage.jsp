@@ -1,17 +1,7 @@
-<%-- 
-    Document   : manage
-    Created on : Nov 30, 2015, 12:39:22 PM
-    Author     : drewbryant
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
-  </head>
-  <body>
+<!--
+Copyright 2015 Drew Bryant and Patrick Lathan
+-->
+<%@ include file="/includes/header.html" %>
     <h2>Currently checked out books</h2>
     <table>
       <tr>
@@ -24,5 +14,4 @@
       </tr>
     </table>
     <a href="library?action=front">Return to front page</a>
-  </body>
-</html>
+<%@ include file="/includes/footer.html" %>

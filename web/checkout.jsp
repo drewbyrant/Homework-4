@@ -1,17 +1,7 @@
-<%-- 
-    Document   : checkout
-    Created on : Nov 30, 2015, 12:30:26 PM
-    Author     : drewbryant
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
-  </head>
-  <body>
+<!--
+Copyright 2015 Drew Bryant and Patrick Lathan
+-->
+<%@ include file="/includes/header.html" %>
     <h2>Checkout a book</h2>
     <form action="/library" method="post">
       <input type="hidden" name="action" value="checkout">
@@ -29,5 +19,4 @@
       <br>
       <input type="submit" value="Checkout">
     </form>
-  </body>
-</html>
+ <%@ include file="/includes/footer.html" %>
