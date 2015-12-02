@@ -1,12 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Andrew Bryant & Patrick Lathan
  */
 package admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +18,8 @@ import java.util.GregorianCalendar;
 
 /**
  *
- * @author drewbryant
+ * Servlet for the whole project
+ * Handles links between pages and form inputs
  */
 @WebServlet(name = "libraryServlet", urlPatterns = {"/library"})
 public class libraryServlet extends HttpServlet {
@@ -54,7 +52,6 @@ public class libraryServlet extends HttpServlet {
           throws ServletException, IOException {
     String action = request.getParameter("action");
     String url = "/index.jsp";
-    String message = "";
     
     if(action == null){
       action = "front";
@@ -66,8 +63,9 @@ public class libraryServlet extends HttpServlet {
       url = "/checkout.jsp";
     }
     else if(action.equals("to_manage")){
-      ArrayList<User> users = UserDB.selectUsers();
-      request.setAttribute("users", users);
+      ArrayList<Book> books = BookDB.selectBooks();
+      
+      request.setAttribute("books", books);
       url = "/manage.jsp";
     }
     else if(action.equals("checkout")){
@@ -75,10 +73,6 @@ public class libraryServlet extends HttpServlet {
       String lastName = request.getParameter("lastname");
       String email = request.getParameter("email");
       String title = request.getParameter("title");
-      //String firstName = "Drew";
-      //String lastName = "Bryant";
-      //String email = "abryant8@elon.edu";
-      //String title = "Coding for Dummies";
       Book book = new Book(title);
       User user = new User(firstName, lastName, email);
       user.addBook(book);
@@ -86,32 +80,24 @@ public class libraryServlet extends HttpServlet {
         UserDB.insert(user);
       }
       if(!BookDB.titleExists(book.getTitle())){
-        BookDB.insert(book);
         book.setUser(user.getEmail());
-      }else{
-        message = "This book has already been checked out";
+        BookDB.insert(book);
       }
       GregorianCalendar dueDate = book.getDueDate();
       request.setAttribute("book", book);
-      //request.setAttribute("user", user);
       request.setAttribute("title", title);
       request.setAttribute("dueDate", dueDate);
       
       url = "/confirm.jsp";
     }
+    else if(action.equals("delete")){
+      String title = request.getParameter("title");
+      Book b = BookDB.selectBook(title);
+      BookDB.delete(b);
+      url = "/index.jsp";
+    }
     getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
   }
-
-  /**
-   * Returns a short description of the servlet.
-   *
-   * @return a String containing servlet description
-   */
-  @Override
-  public String getServletInfo() {
-    return "Short description";
-  }// </editor-fold>
-
 }

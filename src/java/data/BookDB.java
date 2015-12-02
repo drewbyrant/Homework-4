@@ -1,16 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Andrew Bryant & Patrick Lathan
  */
 package data;
 import java.sql.*;
 import business.Book;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
-/**
- *
- * @author drewbryant
- */
+
 public class BookDB {
   public static int insert(Book book) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -23,18 +19,13 @@ public class BookDB {
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, book.getTitle());
-            //String sDate = book.getDueDate().toString();
             GregorianCalendar cal = book.getDueDate();
-           // Date date = new Date(cal.getY)
             java.util.Date date = cal.getTime();
             java.sql.Date sDate = new java.sql.Date(date.getTime());
             ps.setDate(2, sDate);
-            if(book.getIsOverdue() == true){
-              ps.setString(3, "overdue");
-            }else{
-              ps.setString(3, "");
-            }
-            ps.setString(4, book.getUser().getEmail());
+            ps.setString(3, book.getOverdue());
+            String e = book.getUser().getEmail().trim();
+            ps.setString(4, e);
             return ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -107,7 +98,7 @@ public class BookDB {
                 date.getMonth(), date.getDay());
                 cal.add(GregorianCalendar.WEEK_OF_YEAR, 2);
                 book.setDueDate(cal);
-                book.setIsOverdue(rs.getBoolean("Overdue"));
+                book.setOverdue(rs.getString("Overdue"));
             }
             return book;
         } catch (SQLException e) {
@@ -119,4 +110,39 @@ public class BookDB {
             pool.freeConnection(connection);
         }
     }
+  public static ArrayList<Book> selectBooks() {
+        // add code that returns an ArrayList<User> object of all users in the User table
+      ArrayList<Book> books = new ArrayList();
+      Book book;
+      ConnectionPool pool = ConnectionPool.getInstance();
+      Connection connection = pool.getConnection();
+      ResultSet resultSet = null;
+      try{
+        Statement statement = connection.createStatement();
+        resultSet = statement.executeQuery("SELECT * FROM Books");
+        while(resultSet.next()){
+          Date date = resultSet.getDate("Due_Date");
+          GregorianCalendar cal = new GregorianCalendar();
+          cal.setTime(date);
+          GregorianCalendar c = new GregorianCalendar();
+          boolean o = cal.before(c);
+          String overdue = "";
+          if(o){
+            overdue = "overdue";
+          }
+          book = new Book(resultSet.getString("Title"), cal, 
+          overdue);
+          String u = resultSet.getString("UserEmail");
+          book.setUser(u);
+          books.add(book);
+        }
+        return books;
+      } catch (SQLException e){
+          System.out.println(e);
+          return null;
+      } finally{
+        DBUtil.closeResultSet(resultSet);
+        pool.freeConnection(connection);
+      }
+    }  
 }

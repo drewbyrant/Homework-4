@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Andrew Bryant & Patrick Lathan
  */
 package data;
 
@@ -11,16 +9,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-/**
- *
- * @author drewbryant
- */
 public class ConnectionPool {
   private static ConnectionPool pool = null;
 private static DataSource dataSource = null;
 
-    //Need to make sure that we are consistent and using the database
-  // resouurce name used by openshift of jdbc/MySQLDA
   private ConnectionPool() {
     try {
       InitialContext ic = new InitialContext();

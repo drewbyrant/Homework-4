@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Andrew Bryant & Patrick Lathan
  */
 package data;
 
@@ -9,10 +7,6 @@ import java.sql.*;
 import business.User;
 import java.util.ArrayList;
 
-/**
- *
- * @author drewbryant
- */
 public class UserDB {
   public static int insert(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -24,7 +18,7 @@ public class UserDB {
                 + "VALUES (?, ?, ?)";
         try {
             ps = connection.prepareStatement(query);
-            ps.setString(1, user.getEmail());
+            ps.setString(1, user.getEmail().trim());
             ps.setString(2, user.getFirstName());
             ps.setString(3, user.getLastName());
             return ps.executeUpdate();
@@ -112,7 +106,6 @@ public class UserDB {
         }
     }
   public static ArrayList<User> selectUsers() {
-        // add code that returns an ArrayList<User> object of all users in the User table
       ArrayList<User> users = new ArrayList();
       User user;
       ConnectionPool pool = ConnectionPool.getInstance();
@@ -122,7 +115,7 @@ public class UserDB {
         Statement statement = connection.createStatement();
         resultSet = statement.executeQuery("SELECT * FROM Users");
         while(resultSet.next()){
-          user = new User(resultSet.getString("FirstName"), resultSet.getString("LastName"),
+          user = new User(resultSet.getString("Title"), resultSet.getString("LastName"),
           resultSet.getString("Email"));
           users.add(user);
         }

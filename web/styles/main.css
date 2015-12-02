@@ -1,19 +1,37 @@
 /* 
   Copyright 2015 Drew Bryant and Patrick Lathan
 */
-html{
-    font-family: sans-serif;
+a{
+    font-weight: bold;
+    font-size: 1.25em;
+}
+body{
+    margin: 0;
+    width: 100%;
+}
+footer{
+    border-top: solid blue;
+    bottom: 0;
+    width: 100%;
+    padding: 1em;
+    background: white;
 }
 header{
     text-align: center;
     margin: 1em;
 }
-footer{
-    border-top: solid blue;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 1em;
+html{
+    font-family: sans-serif;
+}
+label{
+  float: left;
+  margin-right: .5em;
+  text-align: left;
+  width: 10em;
+}
+p{
+  padding-bottom: .1em;
+  margin: 0em;
 }
 #pageContent{
     border: solid red;
@@ -21,12 +39,4 @@ footer{
     padding: 2em;
     margin: auto;
     margin-bottom: 2em;
-}
-body{
-    margin: 0;
-    width: 100%;
-}
-a{
-    font-weight: bold;
-    font-size: 1.25em;
 }

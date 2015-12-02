@@ -1,14 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Andrew Bryant & Patrick Lathan
  */
 package data;
 import java.sql.*;
-/**
- *
- * @author drewbryant
- */
+
 public class DBUtil {
   public static void closeStatement(Statement s) {
         try {
