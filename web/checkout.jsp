@@ -3,7 +3,7 @@ Copyright 2015 Drew Bryant and Patrick Lathan
 -->
 <%@ include file="/includes/header.html" %>
     <h2>Checkout a book</h2>
-    <form action="/library" method="post">
+    <form action="library" method="post">
       <input type="hidden" name="action" value="checkout">
       First Name:
       <input type="text" name="firstname" size="50" required>

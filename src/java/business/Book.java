@@ -5,6 +5,8 @@
  */
 package business;
 
+import data.UserDB;
+import java.sql.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -14,12 +16,16 @@ import java.util.GregorianCalendar;
 public class Book {
   private String title;
   private GregorianCalendar dueDate;
+  //private Date dueDate;
   private boolean isOverdue;
+  private User user = new User();
   
   public Book(){
     this.title = "";
     this.dueDate = new GregorianCalendar();
     this.dueDate.add(GregorianCalendar.WEEK_OF_YEAR, 2);
+    //this.dueDate = new Date();
+    //this.dueDate.
     this.isOverdue = false;
   }
   public Book(String newTitle, GregorianCalendar newDate, boolean overdue){
@@ -51,6 +57,12 @@ public class Book {
   }
   public void setIsOverdue(boolean overdue){
     this.isOverdue = overdue;
+  }
+  public void setUser(String email){
+    this.user = UserDB.selectUser(email);
+  }
+  public User getUser(){
+    return user;
   }
   
 }

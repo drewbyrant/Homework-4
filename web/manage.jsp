@@ -12,6 +12,13 @@ Copyright 2015 Drew Bryant and Patrick Lathan
         <th>Overdue</th>
         <th> </th>
       </tr>
+      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+      <c:forEach var="user" items="${users}">
+        
+      <tr>
+        <td>${user.firstName}</td>
+      </tr>
+      </c:forEach>
     </table>
     <a href="library?action=front">Return to front page</a>
 <%@ include file="/includes/footer.html" %>

@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import business.Book;
 import business.User;
+import data.BookDB;
+import data.UserDB;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -50,6 +54,7 @@ public class libraryServlet extends HttpServlet {
           throws ServletException, IOException {
     String action = request.getParameter("action");
     String url = "/index.jsp";
+    String message = "";
     
     if(action == null){
       action = "front";
@@ -61,16 +66,36 @@ public class libraryServlet extends HttpServlet {
       url = "/checkout.jsp";
     }
     else if(action.equals("to_manage")){
+      ArrayList<User> users = UserDB.selectUsers();
+      request.setAttribute("users", users);
       url = "/manage.jsp";
     }
     else if(action.equals("checkout")){
-      String firstName = (String)request.getAttribute("firstname");
-      String lastName = (String)request.getAttribute("lastname");
-      String email = (String)request.getAttribute("email");
-      String title = (String)request.getAttribute("title");
+      String firstName = request.getParameter("firstname");
+      String lastName = request.getParameter("lastname");
+      String email = request.getParameter("email");
+      String title = request.getParameter("title");
+      //String firstName = "Drew";
+      //String lastName = "Bryant";
+      //String email = "abryant8@elon.edu";
+      //String title = "Coding for Dummies";
       Book book = new Book(title);
       User user = new User(firstName, lastName, email);
       user.addBook(book);
+      if(!UserDB.emailExists(user.getEmail())){
+        UserDB.insert(user);
+      }
+      if(!BookDB.titleExists(book.getTitle())){
+        BookDB.insert(book);
+        book.setUser(user.getEmail());
+      }else{
+        message = "This book has already been checked out";
+      }
+      GregorianCalendar dueDate = book.getDueDate();
+      request.setAttribute("book", book);
+      //request.setAttribute("user", user);
+      request.setAttribute("title", title);
+      request.setAttribute("dueDate", dueDate);
       
       url = "/confirm.jsp";
     }

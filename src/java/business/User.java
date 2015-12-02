@@ -37,16 +37,16 @@ public class User {
     this.books = new ArrayList(0);
   }
   
-  public String getFirst(){
+  public String getFirstName(){
     return this.firstName;
   }
-  public void setFirst(String newFirst){
+  public void setFirstName(String newFirst){
     this.firstName = newFirst;
   }
-  public String getLast(){
+  public String getLastName(){
     return this.lastName;
   }
-  public void setLast(String newLast){
+  public void setLastName(String newLast){
     this.lastName = newLast;
   }
   public String getEmail(){
